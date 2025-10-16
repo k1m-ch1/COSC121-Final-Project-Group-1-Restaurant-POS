@@ -7,7 +7,7 @@
 
 ### TODO As Admin/Restaurant Owner
 
-- [] password protected (make sure it's secure with hashing and stuff)
+- [x] password protected (make sure it's secure with hashing and stuff)
 - [] can add items
 - [] can delete items
 - [] manage prices

@@ -1,8 +1,9 @@
 import bcrypt
+import getpass
 
-pw = b'password123'
-h = bcrypt.hashpw(pw, bcrypt.gensalt()) # Hash password
+entered_password = getpass.getpass("Enter password: ").encode('utf-8')
+h = bcrypt.hashpw(entered_password, bcrypt.gensalt())
 
 with open("./password_hash.txt", 'w') as file:
-    file.write(str(h))
+    file.write(h.decode())
 
