@@ -7,17 +7,18 @@
 
 ### TODO As Admin/Restaurant Owner
 
-- [] password protected
+- [] password protected (make sure it's secure with hashing and stuff)
 - [] can add items
 - [] can delete items
 - [] manage prices
 - [] store items and save it in file
+- [] make to format it well either in `csv` or `json` format
 - [] see what order is left to send out
 - [] manage customer's order (remove order once customer has paid)
 - [] print out receipt
 
 ### TODO As Guest
 
-- [] Assign table numbers
+- [] Assign table numbers or receipt number
 - [] pick food
-- [] see what food is left or something
+- [] see what food will arrive or something
