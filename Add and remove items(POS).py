@@ -1,49 +1,89 @@
-#Admin system for adding items 
-# Creates an empty list for adding and removing items 
-menu_items = []
+FILENAME = "menu.txt"
 
-def add_item_menu(name, price): 
-    item = {
-        "name": name.strip(), 
-        "price": float(price)  
-    }
-    menu_items.append(item)
-    print(f"{name} added to the menu.")
+def load_menu():
+    menu = []
+    try:
+        with open(FILENAME, "r") as file:
+            for line in file:
+                parts = line.strip().split(",")
+                if len(parts) == 2:
+                    name, price = parts
+                    menu.append({"name": name.strip(), "price": float(price)})
+    except FileNotFoundError:
+        pass
+    except ValueError:
+        print("Warning: Could not parse some lines in menu.txt")
+    return menu
 
+def save_menu(menu):
+    try:
+        with open(FILENAME, "w") as file:
+            for item in menu:
+                file.write(f"{item['name']},{item['price']}\n")
+    except IOError as e:
+        print(f"Error saving menu: {e}")
 
-#Removes items from the list 
-def remove_item_menu(name): 
- for item in menu_items:
-    if item["name"].lower() == name.lower():
-        menu_items.remove(item)
-    print(f"{name} removed from the menu.")
-    return
- print(f"{name} not found in the menu.") 
+def add_item(menu):
+    try:
+        user_input = input("Enter item name and price separated by comma (e.g., Apple, 1.5): ")
+        name, price = user_input.split(",")
+        name = name.strip()
+        price = float(price.strip())
+        
+        menu.append({"name": name, "price": price})
+        save_menu(menu)
+        print(f"'{name}' added to menu.")
+    except ValueError:
+        print("Invalid input. Please use format: Name, Price (numeric)")
 
-#Main Loop for repeating the process to add the items and it will stop when the use gives the quit command 
-while True: 
-    input_item = input("Enter an item on the menu(name, price) or q(quit): ")
+def remove_item(menu):
+    name_to_remove = input("Enter the name of the item to remove: ").strip()
+    
+    found = False
 
-    if input_item.lower() == "q":  
-        break 
+    for item in menu[:]:
+        if item["name"].lower() == name_to_remove.lower():
+            menu.remove(item)
+            found = True
+            print(f"'{item['name']}' removed from menu.")
+    
+    if found:
+        save_menu(menu)
+    else:
+        print(f"Item '{name_to_remove}' not found.")
 
-try: 
-    name,price = input_item.split(",")
-    add_item_menu(name, price) 
-except: 
-    print("Invalid input. Please try again.")
+def view_menu(menu):
+    if not menu:
+        print("\nThe menu is empty.")
+    else:
+        print("\n--- Current Menu ---")
+        for i, item in enumerate(menu, 1):
+            print(f"{i}. {item['name']}: ${item['price']:.2f}")
+        print("--------------------\n")
 
-#Main Loop for repeating the process to remove the items and it will stop when the use gives the quit command
-while True: 
-    input_remove_item = input("Enter an item on the menu to remove or q(quit): ")
+def main():
+    menu = load_menu()
+    
+    while True:
+        print("\nPOS Menu Options:")
+        print("1. View Menu")
+        print("2. Add Item")
+        print("3. Remove Item")
+        print("4. Quit")
+        
+        choice = input("Choose an option (1-4): ").strip()
+        
+        if choice == '1':
+            view_menu(menu)
+        elif choice == '2':
+            add_item(menu)
+        elif choice == '3':
+            remove_item(menu)
+        elif choice == '4':
+            print("Exiting program.")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
-    if input_remove_item.lower() == "q": 
-        break 
-    remove_item_menu(input_remove_item) 
-
-#Gives out the final menu list 
-print("Final Menu List: ", menu_items)
-
-'''
-This code still has issue, fix soon 
-''' 
+if __name__ == "__main__":
+    main()
