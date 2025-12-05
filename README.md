@@ -4,7 +4,8 @@
 
 - Ability to login as guest/customers and order things
 - Ability to login as admin/restaurant owner
-- Food info got: order id, name, price, category, short description, internal notes, in-stock, out of stock, time-based-availability
+- **Food info got: order id, name, price, category, short description, internal notes, in-stock, out of stock, time-based-availability**
+- Category should include `["appetizers", "main", "desert", "drinks"]`
 - Add colors and ANSI codes
 
 ### TODO As Admin/Restaurant Owner
@@ -40,3 +41,9 @@ Python:
 - [x] List, or Dictionary (for storage of food items, and customer orders)
 - [x] Read/Write/Update/Delete to File (updating menus, and storage in a JSON file)
 - [x] Interaction with the user through Terminal or other libraries (interaction through the terminal, with iterfzf acting as a search bar)
+
+## Personal TODO
+
+1. work on admin and related functions
+2. work on guest and related functions
+3. redesign the stuff

@@ -1,5 +1,6 @@
 import guest
 import admin
+import questionary
 
 users = {
     "guest":guest.main,
@@ -9,5 +10,5 @@ users = {
 if __name__ == "__main__":
     user = ""
     while user not in users.keys():
-        user = input("User: ")
+        user = questionary.text("User: ").ask()
     users[user]()

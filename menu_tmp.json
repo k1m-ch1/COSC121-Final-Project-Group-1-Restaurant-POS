@@ -1,0 +1,43 @@
+{
+    "format": {
+        "name": "str",
+        "category": [
+            "appetizers",
+            "main",
+            "desert",
+            "drinks"
+        ],
+        "description": "str",
+        "available": "bool"
+    },
+    "menu": [
+        {
+            "id": "cb506eff-61a6-41a8-84a1-ae03ff5154f9",
+            "name": "fried rice",
+            "category": "appetizers",
+            "description": "Very tasty fried rice, with the freshest of ingredients, without MSG.",
+            "available": true
+        },
+        {
+            "id": "16b9d02c-f827-4327-ad8a-4b8d49307fb3",
+            "name": "fried noodles",
+            "category": "appetizers",
+            "description": "Very tasty fried noodles, with the freshest of ingredients, without MSG.",
+            "available": true
+        },
+        {
+            "id": "1298a00e-e979-47e1-9844-f7e40e71235a",
+            "name": "ice cream",
+            "category": "desert",
+            "description": "homemade ice cream, nice and cold",
+            "available": false
+        },
+        {
+            "id": "2f4550f1-72b2-4a7e-a384-b691c2b6f0ed",
+            "name": "fried chicken",
+            "category": "appetizers",
+            "description": "straight from kentuckey",
+            "available": true
+        }
+    ]
+}

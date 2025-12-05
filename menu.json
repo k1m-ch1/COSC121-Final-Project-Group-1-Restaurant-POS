@@ -1,0 +1,56 @@
+{
+    "format": {
+        "name": "str",
+        "category": [
+            "appetizers",
+            "main",
+            "desert",
+            "drinks"
+        ],
+        "price": "float",
+        "description": "str",
+        "available": "bool"
+    },
+    "menu": [
+        {
+            "id": "1b0e5e83-aaa2-4b34-b45a-80be33d461af",
+            "name": "fried chicken",
+            "category": "appetizers",
+            "price": "5.5",
+            "description": "straight from Kentuckey",
+            "available": true
+        },
+        {
+            "id": "a439ee48-dbf1-4653-8a0e-576e2004227d",
+            "name": "pizza",
+            "category": "main",
+            "price": "10",
+            "description": "pizza with fresh ingredients",
+            "available": true
+        },
+        {
+            "id": "34a03abb-7ec7-42a9-8892-5d9cabfbb3aa",
+            "name": "hamburger",
+            "category": "main",
+            "price": "5",
+            "description": "hamburgers with fresh ingredients",
+            "available": true
+        },
+        {
+            "id": "159c6c2e-2403-4632-b02f-e1795f521e42",
+            "name": "cola",
+            "category": "drinks",
+            "price": "2",
+            "description": "nice and cold cocacola",
+            "available": true
+        },
+        {
+            "id": "ae1bf238-679e-457d-9ab9-dfc9fbaffd95",
+            "name": "ice cream",
+            "category": "desert",
+            "price": "1",
+            "description": "nice and cold ice cream",
+            "available": true
+        }
+    ]
+}

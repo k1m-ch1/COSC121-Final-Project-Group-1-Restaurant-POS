@@ -1,5 +1,0 @@
-Apple,1.5
-Banana,2.0
-Pizza,10.0
-Orange,3.0
-Hamburger,5.0

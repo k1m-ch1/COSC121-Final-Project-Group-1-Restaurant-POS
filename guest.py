@@ -1,5 +1,24 @@
 
+from iterfzf import iterfzf
+import re
+
 FILENAME = "menu.txt"
+
+def select_item(menu_list:list) -> str:
+    """
+    Uses iterfzf to uniquely select an item inside the menu according to its name, while returning its UUID.
+
+    Args:
+        menu_list (list): A list of menu items in the menu dictionary.
+
+    Returns:
+        str: the UUID of the selected menu item
+    """
+    selected_item = ""
+    # might want a more descriptive error handling
+    while (selected_item := iterfzf([f"{menu_item['name']} ({menu_item['id']})" for menu_item in menu_list], prompt="Select an item: ")) == None:
+        pass
+    return re.match(r'.*\((.+)\).*', selected_item).group(1)
 
 def load_menu():
     menu = []
