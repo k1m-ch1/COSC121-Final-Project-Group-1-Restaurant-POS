@@ -14,7 +14,4 @@ def main():
     # place a password condition here
     while not check_password():
         pass
-
     print("entered")
-
-    

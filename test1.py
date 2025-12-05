@@ -88,6 +88,7 @@ def guest():
             print (f"You ordered {ordering}")
         else:
             print (f"{ordering} not in the menu.")
+
 def login():
     global attempts
     while True:
@@ -131,5 +132,5 @@ def print_receipt():
     print("=============================\n")
     session_orders.clear()
 
-
-login()
+if __name__ == '__main__':
+    login()
