@@ -1,6 +1,7 @@
-
 import bcrypt
 import getpass
+import admin_actions
+from test1 import admin
 
 PASSWORD_HASH_FILE = "./password_hash.txt"
 
@@ -14,4 +15,5 @@ def main():
     # place a password condition here
     while not check_password():
         pass
-    print("entered")
+
+    admin_actions.main()

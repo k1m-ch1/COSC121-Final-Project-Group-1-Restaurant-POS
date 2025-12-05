@@ -5,6 +5,7 @@
 - Ability to login as guest/customers and order things
 - Ability to login as admin/restaurant owner
 - Food info got: order id, name, price, category, short description, internal notes, in-stock, out of stock, time-based-availability
+- Add colors and ANSI codes
 
 ### TODO As Admin/Restaurant Owner
 
@@ -23,6 +24,19 @@
 
 ### TODO As Guest
 
+
 - [x] Assign table numbers or receipt number (Oudom)
+- [] But make sure to automatically assign table numbers and receipt numbers
 - [x] pick food (Oudom)
 - [] see what food will arrive or something
+
+### Technical Requirements
+
+Technical Requirements: The project must use the following concepts in
+Python:
+- [x] Conditional Statements (obviously needed)
+- [x] Loops (also need to order multiple items)
+- [x] Function (different functions for different actions)
+- [x] List, or Dictionary (for storage of food items, and customer orders)
+- [x] Read/Write/Update/Delete to File (updating menus, and storage in a JSON file)
+- [x] Interaction with the user through Terminal or other libraries (interaction through the terminal, with iterfzf acting as a search bar)
