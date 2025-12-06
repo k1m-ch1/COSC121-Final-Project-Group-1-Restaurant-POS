@@ -1,8 +1,46 @@
-
 from iterfzf import iterfzf
 import re
+from colorama import init, Fore, Back, Style
+import json
+import constants
+from pypager.source import GeneratorSource
+from pypager.pager import Pager
+from prompt_toolkit.formatted_text import ANSI, to_formatted_text
+from colorama import init, Fore, Style
+
+
+# initialize colorama
+init()
 
 FILENAME = "menu.txt"
+
+def view_menu(menu:dict) -> None:
+    """Show the menu as pager"""
+
+    def get_formatted_menu():
+        for menu_item in menu["menu"]:
+            ansi_line = "-"*20 + "\n"
+            for menu_info_field_key, menu_info_field_value in menu_item.items():
+                ansi_line += f"{menu_info_field_key}: {menu_info_field_value}\n"
+            ansi_line += "-"*20 + "\n"
+            fragments = list(to_formatted_text(ANSI(ansi_line)))
+            # yield a list of (style_str, text) fragments
+            yield fragments
+
+    p = Pager()
+    p.add_source(GeneratorSource(get_formatted_menu()))
+    p.run()
+
+
+def load_menu(menu_file_path) -> dict:
+    """Reads a file that stores the menu and returns it as a dictionary."""
+    menu = dict()
+    try:
+        with open(menu_file_path, 'r') as file:
+                menu = json.loads(file.read())
+    except (FileNotFoundError, json.JSONDecodeError):
+        menu = constants.BARE_MINIMUM_MENU
+    return menu
 
 def select_item(menu_list:list) -> str:
     """
@@ -16,22 +54,10 @@ def select_item(menu_list:list) -> str:
     """
     selected_item = ""
     # might want a more descriptive error handling
-    while (selected_item := iterfzf([f"{menu_item['name']} ({menu_item['id']})" for menu_item in menu_list], prompt="Select an item: ")) == None:
+    # refactor later...
+    while (selected_item := iterfzf([f"{Fore.GREEN}{menu_item['category']:{max(map(lambda menu_item: len(menu_item['category']), menu_list))}}{Style.RESET_ALL}: {menu_item['name']:20} ${str(menu_item['price']):5} ({str(menu_item['id'])})" for menu_item in menu_list], prompt="Select an item: ", ansi=True)) == None:
         pass
     return re.match(r'.*\((.+)\).*', selected_item).group(1)
-
-def load_menu():
-    menu = []
-    try:
-        with open(FILENAME, "r") as file:
-            for line in file:
-                parts = line.strip().split(",")
-                if len(parts) == 2:
-                    name, price = parts
-                    menu.append({"name": name, "price": float(price)})
-    except FileNotFoundError:
-        print("Menu file not found.")
-    return menu
 
 def save_order(table, items):
     with open("orders.txt","a") as file:
@@ -39,6 +65,7 @@ def save_order(table, items):
 
 
 def guest_order_flow():
+    """
     menu = load_menu()
 
     print("\n--- Welcome Guest ---")
@@ -60,6 +87,7 @@ def guest_order_flow():
     save_order(table, chosen_items)
     print("\nOrder placed successfully!")
     print(f"Table {table} ordered: {', '.join(chosen_items)}")
+    """
 
 def main():
     guest_order_flow()

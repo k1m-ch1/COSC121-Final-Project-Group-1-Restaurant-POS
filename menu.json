@@ -51,6 +51,38 @@
             "price": "1",
             "description": "nice and cold ice cream",
             "available": true
+        },
+        {
+            "id": "badc1239-0f79-4745-b325-35706a30fd71",
+            "name": "Taco",
+            "category": "main",
+            "price": "5",
+            "description": "tasty tacos from Mexico",
+            "available": true
+        },
+        {
+            "id": "16aaf3da-29e4-4d78-b9ef-4bfe20603d3f",
+            "name": "Dimsum",
+            "category": "appetizers",
+            "price": "3",
+            "description": "tasty dimsum from China",
+            "available": true
+        },
+        {
+            "id": "3f896f10-0bfe-40f8-87fd-e594a99e3caa",
+            "name": "beer",
+            "category": "drinks",
+            "price": "2",
+            "description": "nice and cold drinks",
+            "available": true
+        },
+        {
+            "id": "3f5bb64b-5b74-48d7-bd99-eac34b6535d9",
+            "name": "chicken nuggets",
+            "category": "appetizers",
+            "price": "2",
+            "description": "very processed chicken nuggets",
+            "available": false
         }
     ]
 }

@@ -8,8 +8,14 @@
 - Category should include `["appetizers", "main", "desert", "drinks"]`
 - Add colors and ANSI codes
 
+### TODO displaying the menu
+
+- [] design the "view menu" page
+- [] design the fzf selection page
+
 ### TODO As Admin/Restaurant Owner
 
+- `remove_item` needs to handle exception well to enable saving when hitting the escape key
 - [x] password protected (make sure it's secure with hashing and stuff)
 - [x] can add items (Tanatxx, lexsigma)
 - [x] guest ordering system (Oudom)
@@ -21,7 +27,7 @@
 - [] see what order is left to send out
 - [] manage customer's order (remove order once customer has paid)
 - [x] print out receipt (lexsigma)
-- [] web storage
+~- [] web storage~
 
 ### TODO As Guest
 
