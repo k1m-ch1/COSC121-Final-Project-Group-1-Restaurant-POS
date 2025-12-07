@@ -63,7 +63,7 @@ def select_item(menu_list:list) -> str|None:
 """
 def remove_orders(all_orders:dict, menu:dict) -> dict:
     """Remove customers orders from the all_orders dictionary"""
-    selected_item = iterfzf([f"{orders['name']:{max(map(lambda orders: len(orders['name']), all_orders["orders"]))}} ({orders['id']})" for orders in all_orders["orders"]], prompt="Select an order to remove: ", ansi=True)
+    selected_item = iterfzf([f"{orders['name']:{max(map(lambda orders: len(orders['name']), all_orders['orders']))}} ({orders['id']})" for orders in all_orders['orders']], prompt="Select an order to remove: ", ansi=True)
     if selected_item == None:
         return all_orders
     to_remove_id = re.match(r".*[(](.+)[)].*", selected_item).group(1)
