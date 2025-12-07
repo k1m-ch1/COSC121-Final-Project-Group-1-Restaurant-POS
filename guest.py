@@ -128,7 +128,7 @@ def get_formatted_orders(orders:dict, menu:dict) -> str:
     menu_lookup = {menu_item["id"]:{k:v for k,v in menu_item.items() if k != "id"} for menu_item in menu["menu"]}
     orders_table = [[menu_lookup[ordered_item_id]["name"], menu_lookup[ordered_item_id]["price"], ordered_item_quantity, round(float(menu_lookup[ordered_item_id]["price"])*ordered_item_quantity, 2)] for ordered_item_id, ordered_item_quantity in orders["orders"].items()]
     total = [[Fore.RED+"Total"+Style.RESET_ALL, "", "", sum(map(lambda x:x[3], orders_table))]]
-    return f"Customer ID: {orders["id"]}\n" + f"Customer Name: {orders["name"]}\n" + tabulate(orders_table + total, headers=headers, tablefmt="pretty") + "\n"
+    return f"Customer ID: {orders['id']}\n" + f"Customer Name: {orders['name']}\n" + tabulate(orders_table + total, headers=headers, tablefmt="pretty") + "\n"
 
 def print_receipt(orders:dict, menu:dict) -> None:
     """Prints receipt given the order dictionary and the menu dictionary"""
