@@ -9,14 +9,10 @@ We use `gotty` to expose the terminal interface to the browser (probably not sec
 First install go.
 
 ```bash
-sudo apt install go
-```
-
-or 
-
-```bash
 sudo pacman -Sy go
 ```
+
+Or somehow through their [website](https://go.dev/doc/install)
 
 Make sure append the go directory to your PATH in your `.bashrc`
 
