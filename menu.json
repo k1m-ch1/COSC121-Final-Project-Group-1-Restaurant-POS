@@ -61,14 +61,6 @@
             "available": true
         },
         {
-            "id": "16aaf3da-29e4-4d78-b9ef-4bfe20603d3f",
-            "name": "Dimsum",
-            "category": "appetizers",
-            "price": "3",
-            "description": "tasty dimsum from China",
-            "available": true
-        },
-        {
             "id": "3f896f10-0bfe-40f8-87fd-e594a99e3caa",
             "name": "beer",
             "category": "drinks",
@@ -77,12 +69,20 @@
             "available": true
         },
         {
-            "id": "3f5bb64b-5b74-48d7-bd99-eac34b6535d9",
-            "name": "chicken nuggets",
-            "category": "appetizers",
+            "id": "cf35f663-ebe9-4952-a618-4c14cc250c5a",
+            "name": "Pho",
+            "category": "main",
             "price": "2",
-            "description": "very processed chicken nuggets",
-            "available": false
+            "description": "Tasty Vietnamese Pho",
+            "available": true
+        },
+        {
+            "id": "2f6a419f-f5ab-4aca-af67-0c008585c5ed",
+            "name": "Sandwhich",
+            "category": "appetizers",
+            "price": "1",
+            "description": "nice sandwich (isn't hotdog, also sorry for the spelling misteak)",
+            "available": true
         }
     ]
 }

@@ -4,36 +4,20 @@ import constants
 import uuid
 from iterfzf import iterfzf
 import questionary
-from guest import select_item, load_menu, view_menu
+from guest import select_item, load_menu, view_menu, load_all_orders, handle_format_dict
 
 def save_menu(menu:dict, menu_file_path:str) -> None:
     """Saves the menu as a dictionary to a designated file path"""
     with open(menu_file_path, 'w') as file:
         file.write(json.dumps(menu, indent=4))
 
-def is_float(target_str:str) -> bool:
-    """Checks whether a given string can be successfully converted to a float"""
-    try:
-        float(target_str)
-        return True
-    except:
-        return False
-
 def add_item(menu:dict) -> dict:
     """Prompt the user for an item and returns back the dictionary (note that it will modify the dictionary so be careful)"""
-    menu_formatting = menu["format"]
+    format_dict = menu["format"]
     new_entry = {
         "id":str(uuid.uuid4())
     }
-    for info_field_name, info_field_type in menu_formatting.items():
-        if type(info_field_type) == list:
-            new_entry[info_field_name] = questionary.select(f"Choose {info_field_name}: ", choices=info_field_type).unsafe_ask()
-        elif info_field_type == "str":
-            new_entry[info_field_name] = questionary.text(f"Enter {info_field_name}: ").unsafe_ask()
-        elif info_field_type == "bool":
-            new_entry[info_field_name] = questionary.confirm(f"{info_field_name} ?").unsafe_ask()
-        elif info_field_type == "float":
-            new_entry[info_field_name] = questionary.text(f"Enter {info_field_name}: ", validate=lambda x: is_float(x) and float(x) > 0).unsafe_ask()
+    new_entry.update(handle_format_dict(format_dict))
     menu["menu"].append(new_entry)
     return menu
 
@@ -56,21 +40,33 @@ def save_and_exit(menu:dict) -> None:
     save_menu(menu, constants.MENU_FILE)
     exit()
 
-ACTION_DICT = {
+def view_all_orders(all_orders:dict) -> None:
+    """View all orders from customers"""
+    pass
+
+def remove_orders(all_orders:dict) -> dict:
+    """Remove customers orders when finished"""
+    return all_orders
+
+MENU_ACTION_DICT = {
     "view menu":view_menu,
     "add item":add_item,
     "remove item":remove_item,
     "save and exit":save_and_exit
 }
 
+ORDERS_ACTION_DICT = {
+    "view all orders":view_all_orders,
+    "remove orders":remove_orders
+}
+
 def main():
     while not check_password():
         pass
-    menu_file_path = constants.MENU_FILE
-    menu = load_menu(menu_file_path)
+    menu = load_menu(constants.MENU_FILE)
     while True:
-        choice = questionary.select("POS Menu Options: ",choices=list(ACTION_DICT.keys())).ask()
-        ACTION_DICT[choice](menu)
+        choice = questionary.select("POS Menu Options: ",choices=list(MENU_ACTION_DICT.keys())).ask()
+        MENU_ACTION_DICT[choice](menu)
 
 if __name__ == '__main__':
     main()

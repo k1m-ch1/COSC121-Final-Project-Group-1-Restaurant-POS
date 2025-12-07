@@ -1,5 +1,81 @@
 # Restaurant POS ordering system
 
+## Exposing the python program to the web
+
+We use `gotty` to expose the terminal interface to the browser (probably not secure).
+
+### Installing `gotty`
+
+First install go.
+
+```bash
+sudo apt install go
+```
+
+or 
+
+```bash
+sudo pacman -Sy go
+```
+
+Make sure append the go directory to your PATH in your `.bashrc`
+
+```bash
+export PATH="$HOME/go/bin:$PATH"
+```
+
+Source your `.bashrc` or just open a new terminal
+
+```bash
+source ~/.bashrc
+```
+
+Then install `gotty`
+
+```bash
+go install github.com/sorenisanerd/gotty@latest
+```
+
+Check that gotty works
+
+```bash
+gotty -h
+```
+### Using `gotty`
+
+#### Server Side
+
+Make sure to first enter your virtual environment. Ex:
+
+```bash
+source ./venv/bin/activate
+```
+
+Then run your terminal based program (can use a different port too).
+
+```bash
+gotty -w -p 8080 python3 main.py
+```
+
+> [!NOTE]
+> The flag `-w` enables standard in, into the program. This might be dangerous, and unsecure.
+
+#### Client Side
+
+Simply connect to it using your web browser. Using the previous example, use the url: `localhost:8080`.
+
+To connect to it via the terminal, use `gotty-client`
+
+```bash
+go install github.com/moul/gotty-client/cmd/gotty-client@latest
+```
+
+To use it:
+
+```bash
+gotty-client -v2 localhost:8080
+```
+
 ## Features
 
 - Ability to login as guest/customers and order things
