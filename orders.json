@@ -43,15 +43,6 @@
             "description": "Los Pollos Hermanos quality please"
         },
         {
-            "id": "09b3669d-f3e0-4bbf-82ba-2f45b98b0280",
-            "name": "Jane",
-            "orders": {
-                "2f6a419f-f5ab-4aca-af67-0c008585c5ed": 2,
-                "159c6c2e-2403-4632-b02f-e1795f521e42": 1
-            },
-            "description": "idk"
-        },
-        {
             "id": "99400ca1-2be0-422c-b5c9-cdb242eab4c1",
             "name": "Tuco Salamanca",
             "orders": {
@@ -120,15 +111,6 @@
             "description": "let's build more burger factories"
         },
         {
-            "id": "858cff55-71a0-43bb-bc26-760af1cf7520",
-            "name": "Charlie",
-            "orders": {
-                "34a03abb-7ec7-42a9-8892-5d9cabfbb3aa": 10,
-                "a439ee48-dbf1-4653-8a0e-576e2004227d": 10
-            },
-            "description": "BIG"
-        },
-        {
             "id": "e0c328e8-4bb1-4d10-96bc-39975107d062",
             "name": "Nacho",
             "orders": {
@@ -136,6 +118,25 @@
                 "159c6c2e-2403-4632-b02f-e1795f521e42": 1
             },
             "description": "yall gotta add some Nachos man"
+        },
+        {
+            "id": "c9f7a226-f4e2-46f2-a57f-f0b755458e26",
+            "name": "Todd",
+            "orders": {
+                "45fa2fa0-81de-4a44-bb05-7cb443251aed": 10
+            },
+            "description": "\"...\""
+        },
+        {
+            "id": "9e13d8e8-cef1-4146-b4c5-8065728f07c7",
+            "name": "Hank",
+            "orders": {
+                "34a03abb-7ec7-42a9-8892-5d9cabfbb3aa": 3,
+                "a439ee48-dbf1-4653-8a0e-576e2004227d": 2,
+                "1b0e5e83-aaa2-4b34-b45a-80be33d461af": 1,
+                "3f896f10-0bfe-40f8-87fd-e594a99e3caa": 2
+            },
+            "description": "Waltur"
         }
     ]
 }

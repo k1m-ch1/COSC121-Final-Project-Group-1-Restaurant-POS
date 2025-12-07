@@ -1,11 +1,14 @@
 import bcrypt
 import json
-from pypager.source import to_formatted_text, GeneratorSource
+from pypager.source import GeneratorSource
 from pypager.pager import Pager
+from prompt_toolkit.formatted_text import ANSI, to_formatted_text
+from iterfzf import iterfzf
 import constants
 import uuid
 import questionary
-from guest import select_item, load_menu, view_menu, load_all_orders, handle_format_dict, print_receipt
+import re
+from guest import select_item, load_menu, view_menu, load_all_orders, handle_format_dict, get_formatted_orders
 
 def save_to_file(to_save:dict, saved_file_path:str) -> None:
     """Saves a dictionary to a designated json file path"""
@@ -41,10 +44,11 @@ def save_menu_and_exit(menu:dict) -> None:
     save_to_file(menu, constants.MENU_FILE)
     exit()
 
-def view_all_orders(all_orders:dict) -> None:
+def view_all_orders(all_orders:dict, menu:dict) -> None:
     """View all orders from customers"""
     def get_orders():
-        yield to_formatted_text(json.dumps(all_orders["orders"], indent=2))
+        for orders in all_orders["orders"]:
+            yield to_formatted_text(ANSI(get_formatted_orders(orders, menu)))
     p = Pager()
     p.add_source(GeneratorSource(get_orders()))
     p.run()
@@ -57,10 +61,14 @@ def select_item(menu_list:list) -> str|None:
         return None
     return re.match(r'.*\((.+)\).*', selected_item).group(1)
 """
-def remove_orders(all_orders:dict) -> dict:
-    """Remove customers orders when finished"""
-    select_item()
-
+def remove_orders(all_orders:dict, menu:dict) -> dict:
+    """Remove customers orders from the all_orders dictionary"""
+    selected_item = iterfzf([f"{orders['name']:{max(map(lambda orders: len(orders['name']), all_orders["orders"]))}} ({orders['id']})" for orders in all_orders["orders"]], prompt="Select an order to remove: ", ansi=True)
+    if selected_item == None:
+        return all_orders
+    to_remove_id = re.match(r".*[(](.+)[)].*", selected_item).group(1)
+    all_orders["orders"] = [order for order in all_orders["orders"] if order['id'] != to_remove_id]
+    save_to_file(all_orders, constants.ORDERS_FILE)
     return all_orders
 
 MENU_ACTION_DICT = {
@@ -87,7 +95,7 @@ def main():
             MENU_ACTION_DICT[choice](menu)
         elif action_choice == "manage orders":
             choice = questionary.select("Order Options: ", choices=list(ORDERS_ACTION_DICT.keys())).ask()
-            ORDERS_ACTION_DICT[choice]()
+            ORDERS_ACTION_DICT[choice](all_orders, menu)
         else:
             save_menu_and_exit(menu)
 

@@ -58,7 +58,7 @@ def select_item(menu_list:list) -> str|None:
     selected_item = iterfzf([f"{Fore.GREEN}{menu_item['category']:{max(map(lambda menu_item: len(menu_item['category']), menu_list))}}{Style.RESET_ALL}: {menu_item['name']:20} ${str(menu_item['price']):5} ({str(menu_item['id'])})" for menu_item in menu_list], prompt="Select an item: ", ansi=True)
     if selected_item == None:
         return None
-    return re.match(r'.*\((.+)\).*', selected_item).group(1)
+    return re.match(r".*[(](.+)[)].*", selected_item).group(1)
 
 def load_all_orders(all_orders_file_path:str) -> dict:
     """Returns an 'all_orders' dictionary by reading an all orders json file"""
@@ -122,18 +122,19 @@ def add_order(all_orders:dict, menu:dict) -> dict:
     new_entry.update(handle_format_dict(all_orders["format"], menu["menu"]))
     return new_entry
 
+def get_formatted_orders(orders:dict, menu:dict) -> str:
+    """Basically format a receipt as a string"""
+    headers = ["Name", "Price", "Quantity", "Total Price"]
+    menu_lookup = {menu_item["id"]:{k:v for k,v in menu_item.items() if k != "id"} for menu_item in menu["menu"]}
+    orders_table = [[menu_lookup[ordered_item_id]["name"], menu_lookup[ordered_item_id]["price"], ordered_item_quantity, round(float(menu_lookup[ordered_item_id]["price"])*ordered_item_quantity, 2)] for ordered_item_id, ordered_item_quantity in orders["orders"].items()]
+    total = [[Fore.RED+"Total"+Style.RESET_ALL, "", "", sum(map(lambda x:x[3], orders_table))]]
+    return f"Customer ID: {orders["id"]}\n" + f"Customer Name: {orders["name"]}\n" + tabulate(orders_table + total, headers=headers, tablefmt="pretty") + "\n"
 
 def print_receipt(orders:dict, menu:dict) -> None:
     """Prints receipt given the order dictionary and the menu dictionary"""
     def generate_receipt():
         # maybe implement markdown tables printing or something later
-        headers = ["Name", "Price", "Quantity", "Total Price"]
-        menu_lookup = {menu_item["id"]:{k:v for k,v in menu_item.items() if k != "id"} for menu_item in menu["menu"]}
-        orders_table = [[menu_lookup[ordered_item_id]["name"], menu_lookup[ordered_item_id]["price"], ordered_item_quantity, round(float(menu_lookup[ordered_item_id]["price"])*ordered_item_quantity, 2)] for ordered_item_id, ordered_item_quantity in orders["orders"].items()]
-        total = [[Fore.RED+"Total"+Style.RESET_ALL, "", "", sum(map(lambda x:x[3], orders_table))]]
-        yield to_formatted_text(ANSI(f"Customer ID: {orders["id"]}\n"))
-        yield to_formatted_text(ANSI(f"Customer Name: {orders["name"]}\n"))
-        yield to_formatted_text(ANSI(tabulate(orders_table + total, headers=headers, tablefmt="pretty")))
+        yield to_formatted_text(ANSI(get_formatted_orders(orders, menu)))
     p = Pager()
     p.add_source(GeneratorSource(generate_receipt()))
     p.run()

@@ -95,13 +95,13 @@ gotty-client -v2 localhost:8080
 - [x] password protected (make sure it's secure with hashing and stuff)
 - [x] can add items (Tanatxx, lexsigma)
 - [x] guest ordering system (Oudom)
-- [] search bar
+- [x] search bar
 - [x] can delete items (Tanatxx, lexsigma)
-- [] manage prices (Tanatxx, lexsigma)
+- [x] manage prices (Tanatxx, lexsigma)
 - [x] store items and save it in file (Tanatxx, lexsigma)
-- [] make to format it well either in `csv` or `json` format
-- [] see what order is left to send out
-- [] manage customer's order (remove order once customer has paid)
+- [x] make to format it well either in `csv` or `json` format
+- [x] see what order is left to send out
+- [x] manage customer's order (remove order once customer has paid)
 - [x] print out receipt (lexsigma)
 ~- [] web storage~
 
@@ -109,9 +109,9 @@ gotty-client -v2 localhost:8080
 
 
 - [x] Assign table numbers or receipt number (Oudom)
-- [] But make sure to automatically assign table numbers and receipt numbers
+- [x] But make sure to automatically assign table numbers and receipt numbers
 - [x] pick food (Oudom)
-- [] see what food will arrive or something
+- ~[] see what food will arrive or something~
 
 ### Technical Requirements
 
@@ -124,8 +124,3 @@ Python:
 - [x] Read/Write/Update/Delete to File (updating menus, and storage in a JSON file)
 - [x] Interaction with the user through Terminal or other libraries (interaction through the terminal, with iterfzf acting as a search bar)
 
-## Personal TODO
-
-1. work on admin and related functions
-2. work on guest and related functions
-3. redesign the stuff
