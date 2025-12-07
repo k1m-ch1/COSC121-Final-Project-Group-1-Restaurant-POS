@@ -1,6 +1,6 @@
 from iterfzf import iterfzf
 import re
-from colorama import init, Fore, Back, Style
+from colorama import init, Fore, Style
 import json
 import constants
 import questionary
@@ -8,7 +8,8 @@ from pypager.source import GeneratorSource
 from pypager.pager import Pager
 from prompt_toolkit.formatted_text import ANSI, to_formatted_text
 from colorama import init, Fore, Style
-
+from tabulate import tabulate
+import uuid
 
 # initialize colorama
 init()
@@ -86,6 +87,7 @@ def is_float(target_str:str) -> bool:
 
 def handle_format_dict(format_dict:dict, menu_list:list=list()) -> dict:
     """Returns a new entry based on the format dict. Prompt the user based on the format dict."""
+    # god this code is UGLY
     new_entry = dict()
     for info_field_name, info_field_type in format_dict.items():
         if type(info_field_type) == list:
@@ -93,10 +95,13 @@ def handle_format_dict(format_dict:dict, menu_list:list=list()) -> dict:
         elif type(info_field_type) == dict:
             # when it's a dictionary, implement multiselect with quantity selection
             new_entry[info_field_name] = dict()
+            # building a lookup dictionary to search menu by id
+            menu_lookup = {menu_item["id"]:f"{menu_item['name']} at ${menu_item['price']}" for menu_item in menu_list}
             while True:
                 selected_item = select_item(menu_list)
                 if selected_item == None:
                     break
+                print(f"Selected {menu_lookup[selected_item]}")
                 quantity = questionary.text("Enter the quantity: ",validate=lambda x:x.isdigit() and int(x) > 0).unsafe_ask()
                 new_entry[info_field_name][selected_item] = int(quantity)
 
@@ -113,34 +118,38 @@ def handle_format_dict(format_dict:dict, menu_list:list=list()) -> dict:
 
 def add_order(all_orders:dict, menu:dict) -> dict:
     """Prompt the user for order details, and returns an order dictionary"""
-    new_entry = handle_format_dict(all_orders["format"], menu["menu"])
+    new_entry = {"id" : str(uuid.uuid4())}
+    new_entry.update(handle_format_dict(all_orders["format"], menu["menu"]))
     return new_entry
 
 
-def view_orders(orders:dict) -> None:
-    """Opens a pager that lets the customer view their orders"""
-    pass
-
-def order(orders:dict) -> dict:
-    """Returns a dictionary of orders, such that the new order gets appended to it. Note that the orders dictionary will have the id of the item in the menu as the key, while the quantity of order will be its value"""
-    pass
-    return orders
-
 def print_receipt(orders:dict, menu:dict) -> None:
     """Prints receipt given the order dictionary and the menu dictionary"""
-    pass
+    def generate_receipt():
+        # maybe implement markdown tables printing or something later
+        headers = ["Name", "Price", "Quantity", "Total Price"]
+        menu_lookup = {menu_item["id"]:{k:v for k,v in menu_item.items() if k != "id"} for menu_item in menu["menu"]}
+        orders_table = [[menu_lookup[ordered_item_id]["name"], menu_lookup[ordered_item_id]["price"], ordered_item_quantity, round(float(menu_lookup[ordered_item_id]["price"])*ordered_item_quantity, 2)] for ordered_item_id, ordered_item_quantity in orders["orders"].items()]
+        total = [[Fore.RED+"Total"+Style.RESET_ALL, "", "", sum(map(lambda x:x[3], orders_table))]]
+        yield to_formatted_text(ANSI(f"Customer ID: {orders["id"]}\n"))
+        yield to_formatted_text(ANSI(f"Customer Name: {orders["name"]}\n"))
+        yield to_formatted_text(ANSI(tabulate(orders_table + total, headers=headers, tablefmt="pretty")))
+    p = Pager()
+    p.add_source(GeneratorSource(generate_receipt()))
+    p.run()
 
-GUEST_ACTION_DICT = {
-    "view orders":view_orders,
-}
+def order(all_orders:dict, menu:dict) -> None:
+    orders = add_order(all_orders, menu)
+    save_orders(orders, constants.ORDERS_FILE)
 
 def main():
-    #while True:
-    #    questionary.select("What would you like to do?", )
     all_orders = load_all_orders(constants.ORDERS_FILE)
     menu = load_menu(constants.MENU_FILE)
-    print(add_order(all_orders, menu))
+    orders = add_order(all_orders, menu)
+    print_receipt(orders, menu)
+    if questionary.confirm("Do you want to order?").ask():
+        save_orders(orders, constants.ORDERS_FILE)
 
-    #guest_order_flow()
+     
 if __name__ == "__main__":
     main()

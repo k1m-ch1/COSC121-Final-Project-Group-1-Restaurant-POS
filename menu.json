@@ -69,19 +69,19 @@
             "available": true
         },
         {
-            "id": "cf35f663-ebe9-4952-a618-4c14cc250c5a",
-            "name": "Pho",
-            "category": "main",
-            "price": "2",
-            "description": "Tasty Vietnamese Pho",
-            "available": true
-        },
-        {
             "id": "2f6a419f-f5ab-4aca-af67-0c008585c5ed",
             "name": "Sandwhich",
             "category": "appetizers",
             "price": "1",
             "description": "nice sandwich (isn't hotdog, also sorry for the spelling misteak)",
+            "available": true
+        },
+        {
+            "id": "45fa2fa0-81de-4a44-bb05-7cb443251aed",
+            "name": "Matcha",
+            "category": "drinks",
+            "price": "2",
+            "description": "MATCHA!",
             "available": true
         }
     ]

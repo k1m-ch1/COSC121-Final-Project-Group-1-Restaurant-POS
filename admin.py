@@ -1,15 +1,16 @@
 import bcrypt
 import json
+from pypager.source import to_formatted_text, GeneratorSource
+from pypager.pager import Pager
 import constants
 import uuid
-from iterfzf import iterfzf
 import questionary
-from guest import select_item, load_menu, view_menu, load_all_orders, handle_format_dict
+from guest import select_item, load_menu, view_menu, load_all_orders, handle_format_dict, print_receipt
 
-def save_menu(menu:dict, menu_file_path:str) -> None:
-    """Saves the menu as a dictionary to a designated file path"""
-    with open(menu_file_path, 'w') as file:
-        file.write(json.dumps(menu, indent=4))
+def save_to_file(to_save:dict, saved_file_path:str) -> None:
+    """Saves a dictionary to a designated json file path"""
+    with open(saved_file_path, 'w') as file:
+        file.write(json.dumps(to_save, indent=4))
 
 def add_item(menu:dict) -> dict:
     """Prompt the user for an item and returns back the dictionary (note that it will modify the dictionary so be careful)"""
@@ -36,23 +37,37 @@ def check_password() -> bool:
             password_hash = file.read().encode('utf-8')
             return bcrypt.checkpw(entered_password, password_hash)
 
-def save_and_exit(menu:dict) -> None:
-    save_menu(menu, constants.MENU_FILE)
+def save_menu_and_exit(menu:dict) -> None:
+    save_to_file(menu, constants.MENU_FILE)
     exit()
 
 def view_all_orders(all_orders:dict) -> None:
     """View all orders from customers"""
-    pass
-
+    def get_orders():
+        yield to_formatted_text(json.dumps(all_orders["orders"], indent=2))
+    p = Pager()
+    p.add_source(GeneratorSource(get_orders()))
+    p.run()
+"""
+def select_item(menu_list:list) -> str|None:
+    # might want a more descriptive error handling
+    # refactor later...
+    selected_item = iterfzf([f"{Fore.GREEN}{menu_item['category']:{max(map(lambda menu_item: len(menu_item['category']), menu_list))}}{Style.RESET_ALL}: {menu_item['name']:20} ${str(menu_item['price']):5} ({str(menu_item['id'])})" for menu_item in menu_list], prompt="Select an item: ", ansi=True)
+    if selected_item == None:
+        return None
+    return re.match(r'.*\((.+)\).*', selected_item).group(1)
+"""
 def remove_orders(all_orders:dict) -> dict:
     """Remove customers orders when finished"""
+    select_item()
+
     return all_orders
 
 MENU_ACTION_DICT = {
     "view menu":view_menu,
     "add item":add_item,
     "remove item":remove_item,
-    "save and exit":save_and_exit
+    "save and exit":save_menu_and_exit
 }
 
 ORDERS_ACTION_DICT = {
@@ -65,8 +80,16 @@ def main():
         pass
     menu = load_menu(constants.MENU_FILE)
     while True:
-        choice = questionary.select("POS Menu Options: ",choices=list(MENU_ACTION_DICT.keys())).ask()
-        MENU_ACTION_DICT[choice](menu)
+        all_orders = load_all_orders(constants.ORDERS_FILE)
+        action_choice = questionary.select("Actions: ", choices=["manage menu", "manage orders", "exit"]).ask()
+        if action_choice == "manage menu":
+            choice = questionary.select("Menu Options: ",choices=list(MENU_ACTION_DICT.keys())).ask()
+            MENU_ACTION_DICT[choice](menu)
+        elif action_choice == "manage orders":
+            choice = questionary.select("Order Options: ", choices=list(ORDERS_ACTION_DICT.keys())).ask()
+            ORDERS_ACTION_DICT[choice]()
+        else:
+            save_menu_and_exit(menu)
 
 if __name__ == '__main__':
     main()
