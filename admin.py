@@ -52,15 +52,7 @@ def view_all_orders(all_orders:dict, menu:dict) -> None:
     p = Pager()
     p.add_source(GeneratorSource(get_orders()))
     p.run()
-"""
-def select_item(menu_list:list) -> str|None:
-    # might want a more descriptive error handling
-    # refactor later...
-    selected_item = iterfzf([f"{Fore.GREEN}{menu_item['category']:{max(map(lambda menu_item: len(menu_item['category']), menu_list))}}{Style.RESET_ALL}: {menu_item['name']:20} ${str(menu_item['price']):5} ({str(menu_item['id'])})" for menu_item in menu_list], prompt="Select an item: ", ansi=True)
-    if selected_item == None:
-        return None
-    return re.match(r'.*\((.+)\).*', selected_item).group(1)
-"""
+
 def remove_orders(all_orders:dict, menu:dict) -> dict:
     """Remove customers orders from the all_orders dictionary"""
     selected_item = iterfzf([f"{orders['name']:{max(map(lambda orders: len(orders['name']), all_orders['orders']))}} ({orders['id']})" for orders in all_orders['orders']], prompt="Select an order to remove: ", ansi=True)
