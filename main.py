@@ -9,6 +9,5 @@ users = {
 
 if __name__ == "__main__":
     user = ""
-    while user not in users.keys():
-        user = questionary.text("User: ").ask()
+    user = questionary.select("User: ", choices=users.keys()).ask()
     users[user]()
