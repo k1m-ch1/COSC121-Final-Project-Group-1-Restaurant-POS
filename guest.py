@@ -1,6 +1,5 @@
 from iterfzf import iterfzf
 import re
-from colorama import init, Fore, Style
 import json
 import constants
 import questionary
