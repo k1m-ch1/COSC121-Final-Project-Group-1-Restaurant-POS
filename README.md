@@ -176,9 +176,10 @@ solve it?
 • Example: GUI upgrade, login system, database support,
 etc.
     - In the future, if we want to update this program, we would like to update the GUI from text-based to a visual-based GUI for easier navigation. 
-Slide 12 — Conclusion
+    
+### Slide 12 — Conclusion
 • What did you learn about Python? : We learn the core basics of the fundamentals of Python from the syntax, variables, and functions. We also learned programming by doing practice. 
 • How did this project help you understand programming? : This project helps us to understand programming by helping us to write a program based on what we learn.  
 
-Slide 13 — Member Contributions
+### Slide 13 — Member Contributions
 • List each team member and their role/contribution
