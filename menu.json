@@ -91,6 +91,22 @@
             "price": "1",
             "description": "Nice and cool for summer",
             "available": true
+        },
+        {
+            "id": "562c8b46-0dbb-45db-bc6b-7cfe5a4945f7",
+            "name": "Tuna",
+            "category": "main",
+            "price": "1",
+            "description": "fishy straight from the pacific ocean",
+            "available": true
+        },
+        {
+            "id": "fc01a83a-7423-478d-8123-49e9ed285bf7",
+            "name": "Boba milk tea",
+            "category": "drinks",
+            "price": "1",
+            "description": "Very sweet. Guaranteed diabetes",
+            "available": true
         }
     ]
 }

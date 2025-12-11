@@ -40,9 +40,9 @@ def check_password() -> bool:
             password_hash = file.read().encode('utf-8')
             return bcrypt.checkpw(entered_password, password_hash)
 
-def save_menu_and_exit(menu:dict) -> None:
+def save_menu(menu:dict) -> None:
     save_to_file(menu, constants.MENU_FILE)
-    exit()
+    #exit()
 
 def view_all_orders(all_orders:dict, menu:dict) -> None:
     """View all orders from customers"""
@@ -67,12 +67,13 @@ MENU_ACTION_DICT = {
     "view menu":view_menu,
     "add item":add_item,
     "remove item":remove_item,
-    "save and exit":save_menu_and_exit
+    "back": (lambda x: x)
 }
 
 ORDERS_ACTION_DICT = {
     "view all orders":view_all_orders,
-    "remove orders":remove_orders
+    "remove orders":remove_orders,
+    "back": (lambda x, y: x)
 }
 
 def main():
@@ -89,7 +90,8 @@ def main():
             choice = questionary.select("Order Options: ", choices=list(ORDERS_ACTION_DICT.keys())).ask()
             ORDERS_ACTION_DICT[choice](all_orders, menu)
         else:
-            save_menu_and_exit(menu)
+            save_menu(menu)
+            break
 
 if __name__ == '__main__':
     main()
