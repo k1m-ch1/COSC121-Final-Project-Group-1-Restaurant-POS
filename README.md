@@ -1,5 +1,37 @@
 # Restaurant POS ordering system
 
+## Running the program locally
+
+First clone the repository
+
+```bash
+git clone https://github.com/k1m-ch1/COSC121-Final-Project-Group-1-Restaurant-POS.git
+```
+
+Change directory into the folder
+
+```bash
+cd COSC121-Final-Project-Group-1-Restaurant-POS
+```
+
+Create a new virtual environment (recommended)
+
+```bash
+python3 -m venv venv
+```
+
+Activate the environment
+
+```bash
+source ./venv/bin/activate
+```
+
+Install of the requirements
+
+```bash
+pip install -r ./requirements.txt
+```
+
 ## Exposing the python program to the web
 
 We use `gotty` to expose the terminal interface to the browser (probably not secure).
