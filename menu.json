@@ -83,6 +83,14 @@
             "price": "2",
             "description": "MATCHA!",
             "available": true
+        },
+        {
+            "id": "9a9a15e8-e957-4491-a2f3-fc50b5d67950",
+            "name": "Watermelon",
+            "category": "desert",
+            "price": "1",
+            "description": "Nice and cool for summer",
+            "available": true
         }
     ]
 }
