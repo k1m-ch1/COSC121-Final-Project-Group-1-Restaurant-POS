@@ -123,7 +123,7 @@ Python:
 ### The Slide Guide
 ### Slide 1 — Title Slide
 • Python Restaurant POS System
-• Tanay Mehra, Kimchour Ly, Bun Oudom, Han Alex  
+• Tanay Mehra, Kimchour Ly, Bun Oudom, Haklex  
 • Computer Science A(Fall Semester)
 • Professor Mat Nab 
 
