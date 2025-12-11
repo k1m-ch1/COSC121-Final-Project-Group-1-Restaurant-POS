@@ -8,7 +8,7 @@ author: Luy Kimchour (2025136), By Bun Oudom (2025005), Leng Haklex (2025049), M
 **COSC121 - Section 001: Computer Science A (FALL 2025)**
 </h1>
 
-- **Author**: Tanay Mehra, Kimchour Ly, Bun Oudom, Han Alex
+- **Author**: Tanay Mehra, Kimchour Ly, Bun Oudom, Leng Haklex
 - **Professor**: Mat Nab
 
 ---
@@ -36,12 +36,12 @@ The system works in two ways. First, the admin can enter the system using a pass
 
 # Key Python Features Used
 
-- [] Conditional Statements (obviously needed)
-- [] Loops (also need to order multiple items)
-- [] Function (different functions for different actions)
-- [] List, or Dictionary (for storage of food items, and customer orders)
-- [] Read/Write/Update/Delete to File (updating menus, and storage in a JSON file)
-- [] Interaction with the user through Terminal or other libraries (interaction through the terminal, with iterfzf acting as a search bar)
+- [x] Conditional Statements (obviously needed)
+- [x] Loops (also need to order multiple items)
+- [x] Function (different functions for different actions)
+- [x] List, or Dictionary (for storage of food items, and customer orders)
+- [x] Read/Write/Update/Delete to File (updating menus, and storage in a JSON file)
+- [x] Interaction with the user through Terminal or other libraries (interaction through the terminal, with iterfzf acting as a search bar)
 
 ---
 
