@@ -55,7 +55,10 @@ def select_item(menu_list:list) -> str|None:
     # might want a more descriptive error handling
     # refactor later...
     try:
-        selected_item = iterfzf([f"{Fore.GREEN}{menu_item['category']:{max(map(lambda menu_item: len(menu_item['category']), menu_list))}}{Style.RESET_ALL}: {menu_item['name']:20} ${str(menu_item['price']):5} ({str(menu_item['id'])})" for menu_item in menu_list], prompt="Select an item: ", ansi=True)
+        selected_item = iterfzf([f"{Fore.GREEN}{menu_item['category']:{max(map(lambda menu_item: len(menu_item['category']), menu_list))}}{Style.RESET_ALL}: {menu_item['name']:20} ${str(menu_item['price']):5} ({str(menu_item['id'])})" for menu_item in menu_list], 
+                                prompt="Select an item: ", 
+                                ansi=True
+                                )
         return re.match(r".*[(](.+)[)].*", selected_item).group(1)
     except:
         return None
